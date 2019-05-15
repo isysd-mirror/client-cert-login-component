@@ -20,5 +20,8 @@
   },
   "dependencies": {
     "node-forge": "*"
+  },
+  "optionalDependencies": {
+    "esm": "^3.2.22"
   }
 }
