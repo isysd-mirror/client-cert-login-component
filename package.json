@@ -15,7 +15,6 @@
     "express": "^4.16.4",
     "jquery": "*",
     "marked": "^0.6.2",
-    "node-forge": "*",
-    "open": "*"
+    "node-forge": "*"
   }
 }

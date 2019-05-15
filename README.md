@@ -2,7 +2,7 @@
 
 ### Demo
 
-<div id="demo-content"><iframe width="560" height="315" src="https://www.youtube.com/embed/GVVUmgh5GsU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<div id="demo-content">[![Demo video](https://raw.githubusercontent.com/isysd-mirror/mtls-auth-example/isysd/videos/demo.gif)](https://www.youtube.com/embed/GVVUmgh5GsU)</div>
 
 ### About
 

@@ -6,7 +6,7 @@ import * as path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import marked from 'marked'
-import open from 'open'
+//import open from 'open'
 import forge from 'node-forge'
 import clientCertificateAuth from 'client-certificate-auth'
 import manifestToHtml from '../manifest-to-html/manifest-to-html.js'
@@ -137,8 +137,8 @@ getOptions().then(async opts => {
   https.createServer(opts, app).listen(4000)
   process.stdout.write('\x1Bc')
   process.stdout.write(`https://${process.env.HOSTNAME}:4000`)
-  var tmpdir = path.join(os.tmpdir(), 'test-chrome-profile')
-  await fs.promises.mkdir(tmpdir, {recursive: true}).catch(e => undefined)
-  await open(`https://${process.env.HOSTNAME}:4000`, {app: ['chromium-browser', `--user-data-dir=${tmpdir}`]});
+  //var tmpdir = path.join(os.tmpdir(), 'test-chrome-profile')
+  //await fs.promises.mkdir(tmpdir, {recursive: true}).catch(e => undefined)
+  //await open(`https://${process.env.HOSTNAME}:4000`, {app: ['chromium-browser', `--user-data-dir=${tmpdir}`]});
 })
 
