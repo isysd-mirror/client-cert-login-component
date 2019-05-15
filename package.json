@@ -1,6 +1,6 @@
 {
   "name": "client-cert-login-component",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Web component for client certificate authentication and registration form.",
   "main": "component.node.js",
   "module": "component.js",
