@@ -1,20 +1,24 @@
 {
-  "name": "mtls-auth-example",
-  "version": "1.0.0",
-  "description": "Example app with client certificate authentication and registration form.",
-  "main": "server.js",
+  "name": "client-cert-login-component",
+  "version": "0.1.0",
+  "description": "Web component for client certificate authentication and registration form.",
+  "main": "component.node.js",
+  "module": "component.js",
   "scripts": {
     "start": "node -r esm server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "isysd",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "body-parser": "^1.19.0",
+    "bower": "^1.8.8",
     "client-certificate-auth": "https://github.com/isysd-mirror/client-certificate-auth.git",
     "express": "^4.16.4",
     "jquery": "*",
-    "marked": "^0.6.2",
+    "marked": "^0.6.2"
+  },
+  "dependencies": {
     "node-forge": "*"
   }
 }

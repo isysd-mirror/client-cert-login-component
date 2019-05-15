@@ -18,7 +18,11 @@
         "src": "/forge.all.min.js"
       },
       {
-        "src": "/index.js",
+        "src": "/modal.js",
+        "type": "module"
+      },
+      {
+        "src": "/component.js",
         "type": "module"
       }
     ]

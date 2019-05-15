@@ -4,3 +4,4 @@ pki/*.*
 clients/*.*
 clients/*@*
 videos/mtls-login-example.mp4
+bower_components

@@ -1,4 +1,4 @@
-# Mutual TLS (MTLS) Login Example
+# Client TLS Certificate Login & Registration Web Component
 
 ### Demo
 
@@ -6,23 +6,74 @@
 
 ### About
 
-This app lets users register with an existing client TLS certificate, or generate one in their browser, using [forge](https://github.com/digitalbazaar/forge).
+This web component lets users register with an existing client TLS certificate, or generate one in their browser, using [forge](https://github.com/digitalbazaar/forge). Once registered, the native browser certificate selection dialogue handles "login".
 
 ### Usage
 
-To install, clone this repo from git, then run `npm i`.
+This component requires [forge](https://github.com/digitalbazaar/forge) and optionally [webcomponents](https://github.com/webcomponents/webcomponentsjs) polyfill to be present.
+
+<!--
+```
+<custom-element-demo>
+  <template>
+    <script src="https://unpkg.com/forge@2.3.0/forge.js"></script>
+    <script src="component.js"></script>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<!--
+  Will display a modal form prompting user to import or generate a key.
+  Upon key generation/import, the key is sent to this.register().
+-->
+<create-client-login></create-client-login>
+?editing
+```
+
+Alternately, you can mark the user as "logged in" by setting the `cn` attribute.
+
+<!--
+```
+<custom-element-demo>
+  <template>
+    <script src="https://unpkg.com/forge@2.3.0/forge.js"></script>
+    <script src="component.js"></script>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<!--
+  Will display only customizable this.showAuthenticated() response
+  Use this to mark the user as "logged in", to suppress the modal.
+-->
+<create-client-login cn="currentUser"></create-client-login>
+```
+
+The server needs to be configured to prompt for the client certificate, and renegotiate sessions. The [client-certificate-auth](https://github.com/isysd-mirror/client-certificate-auth) middleware will make this much easier. For an full example, see the demo server.
+
+### Install
+
+It is recommended to install this package directly from git. If you want to use the npm version of forge, then also run `npm i`.
 
 ```
-git clone https://github.com/isysd-mirror/mtls-auth-example.git
-cd mtls-auth-example
+git clone https://github.com/isysd-mirror/client-cert-login-component.git
+cd client-cert-login-component
 npm i
 ```
 
-Then to start the server, run `npm start`.
+### Example server (for demo)
 
-### Configuration
+Run `npm start`.
 
-This example app has very basic configuration via environment variables.
+Server runs on [localhost port 4000](https://localhost:4000), and will authenticate users with certificates in the `CLIENT_CERT_DIR`.
+
+##### Example Configuration
+
+This example server has very basic configuration via environment variables.
 
 | Variable | Default |
 |----------|---------|

@@ -23,8 +23,9 @@ var app = express();
 app.get('/', async function(req, res) {
   if (req.connection && req.connection.getPeerCertificate) {
     var cert = req.connection.getPeerCertificate(true)
-    if (cert && cert.subject && cert.subject.CN) manifestHtml = manifestHtml.replace('<body>', `<body>
-<input type="hidden" id="client-cn" value="${cert.subject.CN}"></input>
+    //<client-cert-login></client-cert-login>
+    if (cert && cert.subject && cert.subject.CN) manifestHtml = manifestHtml.replace(/\<a href\="https\:\/\/www\.youtube.*Demo video"\>\<\/a\>/m, `
+<client-cert-login cn="${cert.subject.CN}"></client-cert-login>
 `)
   }
   res.send(manifestHtml)
@@ -86,8 +87,17 @@ app.get('/jquery.min.js', function(req, res) {
   })
 })
 
-app.get('/sw.js', function(req, res) {
-  res.sendFile('./sw.js', {
+app.get('/modal.js', function(req, res) {
+  res.sendFile('./modal.js', {
+    root: process.cwd(),
+    headers: {
+      'content-type': 'application/javascript'
+    }
+  })
+})
+
+app.get('/component.js', function(req, res) {
+  res.sendFile('./component.js', {
     root: process.cwd(),
     headers: {
       'content-type': 'application/javascript'
@@ -133,9 +143,10 @@ getOptions().then(async opts => {
   manifest = await fs.promises.readFile('manifest.json', 'utf-8')
   manifestHtml = await manifestToHtml(manifest)
   manifestHtml = manifestHtml.replace('<body>', '<body>\n\n' + marked(await fs.promises.readFile('README.md', 'utf-8')))
+  console.log(manifestHtml)
   opts.rejectUnauthorized = false // set to false initially for public view
   https.createServer(opts, app).listen(4000)
-  process.stdout.write('\x1Bc')
+  //process.stdout.write('\x1Bc')
   process.stdout.write(`https://${process.env.HOSTNAME}:4000`)
   //var tmpdir = path.join(os.tmpdir(), 'test-chrome-profile')
   //await fs.promises.mkdir(tmpdir, {recursive: true}).catch(e => undefined)
