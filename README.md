@@ -2,7 +2,7 @@
 
 ### Demo
 
-<div id="demo-content">[![Demo video](https://raw.githubusercontent.com/isysd-mirror/mtls-auth-example/isysd/videos/demo.gif)](https://www.youtube.com/embed/GVVUmgh5GsU)</div>
+[![Demo video](https://raw.githubusercontent.com/isysd-mirror/mtls-auth-example/isysd/videos/demo.gif)](https://www.youtube.com/embed/GVVUmgh5GsU)
 
 ### About
 
