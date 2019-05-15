@@ -12,9 +12,6 @@
         "src": "/jquery.min.js"
       },
       {
-        "src": "/marked.min.js"
-      },
-      {
         "src": "/forge.all.min.js"
       },
       {

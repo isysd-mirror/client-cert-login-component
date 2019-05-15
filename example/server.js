@@ -9,7 +9,7 @@ import marked from 'marked'
 //import open from 'open'
 import forge from 'node-forge'
 import clientCertificateAuth from 'client-certificate-auth'
-import manifestToHtml from '../manifest-to-html/manifest-to-html.js'
+import manifestToHtml from '../../manifest-to-html/manifest-to-html.js'
 import { getOptions, installCert } from './auth.js'
 process.env.PKIDIR = process.env.PKIDIR || path.join(process.cwd(), 'pki')
 process.env.CLIENT_CERT_DIR = process.env.CLIENT_CERT_DIR || path.join(process.cwd(), 'clients')
@@ -31,6 +31,15 @@ app.get('/', async function(req, res) {
   res.send(manifestHtml)
 })
 
+app.get('/demo/index.html', async function(req, res) {
+  res.sendFile('./demo/index.html', {
+    root: process.cwd(),
+    headers: {
+      'content-type': 'text/html'
+    }
+  })
+})
+
 app.get('/README.md', function(req, res) {
   res.sendFile('./README.md', {
     root: process.cwd(),
@@ -41,7 +50,7 @@ app.get('/README.md', function(req, res) {
 })
 
 app.get('/manifest.json', function(req, res) {
-  res.sendFile('./manifest.json', {
+  res.sendFile('example/manifest.json', {
     root: process.cwd(),
     headers: {
       'content-type': 'application/json'
@@ -49,17 +58,7 @@ app.get('/manifest.json', function(req, res) {
   })
 })
 
-app.get('/favicon.ico', function(req, res) {
-  /*res.sendFile('./images/favicon.ico', {
-    root: process.cwd(),
-    headers: {
-      'content-type': 'image/x-icon'
-    }
-  })*/
-  res.status(404).send('no icon')
-})
-
-app.get('/forge.all.min.js', function(req, res) {
+app.get(['/forge.all.min.js', '/demo/forge/dist/forge.all.min.js', '/bower_components/forge/dist/forge.all.min.js'], function(req, res) {
   res.sendFile('./node_modules/node-forge/dist/forge.all.min.js', {
     root: process.cwd(),
     headers: {
@@ -78,7 +77,7 @@ app.get('/marked.min.js', function(req, res) {
 })
 
 
-app.get('/jquery.min.js', function(req, res) {
+app.get(['/jquery.min.js', '/demo/jquery/dist/jquery.min.js', '/bower_components/jquery/dist/jquery.min.js'], function(req, res) {
   res.sendFile('./node_modules/jquery/dist/jquery.min.js', {
     root: process.cwd(),
     headers: {
@@ -114,7 +113,7 @@ app.get('/index.js', function(req, res) {
   })
 })
 
-app.get('/client-cert.json', clientCertificateAuth(getOptions, () => true), function(req, res) {
+app.get('/whoami', clientCertificateAuth(getOptions, () => true), function(req, res) {
   res.send(JSON.stringify(req.connection.getPeerCertificate(true).subject));
 });
 
@@ -126,7 +125,6 @@ app.post('/register', bodyParser.text({'type': 'application/x-509-user-cert'}), 
     try {
       installCert(cn, req.body)
     } catch (e) {
-      console.log(e)
       if (e && e.code && e.code === 'EEXIST') {
         return res.status(401).send(`This common name is already registered. Please pick a unique one.`)
       } else {
@@ -140,10 +138,9 @@ app.post('/register', bodyParser.text({'type': 'application/x-509-user-cert'}), 
 // Start the server
 getOptions().then(async opts => {
   // preload this for cache
-  manifest = await fs.promises.readFile('manifest.json', 'utf-8')
+  manifest = await fs.promises.readFile('example/manifest.json', 'utf-8')
   manifestHtml = await manifestToHtml(manifest)
   manifestHtml = manifestHtml.replace('<body>', '<body>\n\n' + marked(await fs.promises.readFile('README.md', 'utf-8')))
-  console.log(manifestHtml)
   opts.rejectUnauthorized = false // set to false initially for public view
   https.createServer(opts, app).listen(4000)
   //process.stdout.write('\x1Bc')

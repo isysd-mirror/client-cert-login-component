@@ -119,7 +119,6 @@ class ClientCertRegistration extends HTMLElement {
       delete this.cn
       this.cn = value
     }
-    console.log(this.cn)
     if (this.cn && this.cn.length > 0) {
       // user is logged in!
       this.shadowRoot.appendChild(welcomeTmpl.content.cloneNode(true))
@@ -138,7 +137,6 @@ class ClientCertRegistration extends HTMLElement {
 
   attributeChangedCallback (name, oldVal, newVal) {
     const hasValue = newVal !== null
-    console.log(`new ${name} ${newVal}`)
     switch (name) {
       case 'cert':
         break
@@ -206,7 +204,6 @@ class ClientCertRegistration extends HTMLElement {
         self.lastError = e.toString()
       }
       self.cert = evt.target.result
-      console.log(cert.subject)
       self.register(cert.subject.getField('CN').value, evt.target.result)
     }
   }

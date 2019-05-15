@@ -12,6 +12,10 @@
     "x.509",
     "authentication"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isysd-mirror/client-cert-login-component"
+  },
   "homepage": "https://iramiller.com/src/js/client-cert-login-component",
   "ignore": [
     "**/.*",
@@ -21,6 +25,7 @@
     "tests"
   ],
   "dependencies": {
-    "forge": "^0.7.1"
+    "forge": "^0.7.1",
+    "jquery": "^3.4.1"
   }
 }

@@ -4,6 +4,8 @@
 
 [![Demo video](https://raw.githubusercontent.com/isysd-mirror/mtls-auth-example/isysd/videos/demo.gif)](https://www.youtube.com/embed/GVVUmgh5GsU)
 
+Another [online demo](https://www.webcomponents.org/element/client-cert-login-component/demo/demo/index.html) is available on webcomponents.org.
+
 ### About
 
 This web component lets users register with an existing client TLS certificate, or generate one in their browser, using [forge](https://github.com/digitalbazaar/forge). Once registered, the native browser certificate selection dialogue handles "login".
