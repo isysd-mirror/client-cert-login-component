@@ -6,7 +6,7 @@
   "module": "component.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/isysd-mirror/client-cert-login-component"
+    "url": "https://github.com/isysd-mirror/client-cert-login-component.git"
   },
   "homepage": "https://iramiller.com/src/js/client-cert-login-component",
   "keywords": [
