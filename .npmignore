@@ -2,3 +2,6 @@ videos
 server.js
 auth.js
 bower.json
+bower_components
+pki
+clients
