@@ -2,7 +2,7 @@
 
 ### Demo
 
-Demo should load here.
+<div id="demo-content"><iframe width="560" height="315" src="https://www.youtube.com/embed/GVVUmgh5GsU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ### About
 

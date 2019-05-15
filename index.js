@@ -15,10 +15,14 @@ window.addEventListener('load', async () => {
 })
 
 function loadDemo () {
+  var iframes = document.querySelectorAll('iframe');
+  for (var i = 0; i < iframes.length; i++) {
+    iframes[i].parentNode.removeChild(iframes[i]);
+  }
   document.getElementById('demo')
           .nextSibling
-          .nextSibling
-          .innerHTML = `<div id="demo-content" style="height: 300px; width: 500px; border: 2px solid blue; margin: 1em; padding: 1em;"></div>`
+          .innerHTML = `<div id="demo-content" style="height: 315px; width: 560px; border: 2px solid blue; margin: 1em; padding: 1em;"></div>`
+
   content = document.getElementById('demo-content')
 }
 
