@@ -16,7 +16,7 @@ This component requires [forge](https://github.com/digitalbazaar/forge) and opti
 ```
 <custom-element-demo>
   <template>
-    <script src="https://unpkg.com/forge@2.3.0/forge.js"></script>
+    <script src="bower_components/forge/dist/forge.min.js"></script>
     <script src="component.js"></script>
     <next-code-block></next-code-block>
   </template>
@@ -29,28 +29,13 @@ This component requires [forge](https://github.com/digitalbazaar/forge) and opti
   Upon key generation/import, the key is sent to this.register().
 -->
 <create-client-login></create-client-login>
-?editing
-```
-
-Alternately, you can mark the user as "logged in" by setting the `cn` attribute.
 
 <!--
-```
-<custom-element-demo>
-  <template>
-    <script src="https://unpkg.com/forge@2.3.0/forge.js"></script>
-    <script src="component.js"></script>
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
-```html
-<!--
-  Will display only customizable this.showAuthenticated() response
+  Would display only customizable this.showAuthenticated() response
   Use this to mark the user as "logged in", to suppress the modal.
+
+  <create-client-login cn="currentUser"></create-client-login>
 -->
-<create-client-login cn="currentUser"></create-client-login>
 ```
 
 The server needs to be configured to prompt for the client certificate, and renegotiate sessions. The [client-certificate-auth](https://github.com/isysd-mirror/client-certificate-auth) middleware will make this much easier. For an full example, see the demo server.
