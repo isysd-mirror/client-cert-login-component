@@ -31,8 +31,11 @@ export async function getAllCerts () {
     // load all certs in client directory
     var clients = await fs.promises.readdir(process.env.CLIENT_CERT_DIR)
     await Promise.all(clients.map(async c => {
-      certDB[c] = await fs.promises.readFile(path.join(process.env.CLIENT_CERT_DIR, c, 'cert.pem'))
-      return certDB[c]
+      var crt = await fs.promises.readFile(path.join(process.env.CLIENT_CERT_DIR, c, 'cert.pem')).catch(e => undefined)
+      if (crt) {
+        certDB[c] = crt
+        return certDB[c]
+      }
     }))
   }
   return Object.values(certDB).join('\n')

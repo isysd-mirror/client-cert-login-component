@@ -49,7 +49,7 @@ function showSuccess () {
   if (privkey) {
     content.innerHTML += `
     <p>
-    Please <a id="privkey-p12" download="privkey.p12" href="data:application/x-pkcs12;charset=utf-8,${encodeURIComponent(privkey)}">download</a> (if download wasn't automatically initiated) your new private key file, and install it in your browser.
+    Please <a id="privkey-p12" download="privkey.p12" href="data:application/x-pkcs12;base64,${encodeURIComponent(privkey)}">download</a> (if download wasn't automatically initiated) your new private key file, and install it in your browser.
     </p>
     <p>
     You may also <a id="certificate-link" download="client-cert.pem" href="data:application/x-x509-user-cert;charset=utf-8,${encodeURIComponent(cert)}">download your certificate</a>, though that was already sent to the server, and it is bundled with your private key in the .p12 file.

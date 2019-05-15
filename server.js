@@ -6,12 +6,14 @@ import * as path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import marked from 'marked'
+import open from 'open'
 import forge from 'node-forge'
 import clientCertificateAuth from 'client-certificate-auth'
 import manifestToHtml from '../manifest-to-html/manifest-to-html.js'
 import { getOptions, installCert } from './auth.js'
 process.env.PKIDIR = process.env.PKIDIR || path.join(process.cwd(), 'pki')
 process.env.CLIENT_CERT_DIR = process.env.CLIENT_CERT_DIR || path.join(process.cwd(), 'clients')
+process.env.HOSTNAME = process.env.HOSTNAME || os.hostname()
 
 var manifest
 var manifestHtml
@@ -47,30 +49,13 @@ app.get('/manifest.json', function(req, res) {
 })
 
 app.get('/favicon.ico', function(req, res) {
-  res.sendFile('./images/favicon.ico', {
+  /*res.sendFile('./images/favicon.ico', {
     root: process.cwd(),
     headers: {
       'content-type': 'image/x-icon'
     }
-  })
-})
-
-app.get('/android-chrome-192x192.png', function(req, res) {
-  res.sendFile('./images/android-chrome-192x192.png', {
-    root: process.cwd(),
-    headers: {
-      'content-type': 'image/png'
-    }
-  })
-})
-
-app.get('/512px-Icon_DINA_Schwerpunkte_Parldigi_01_Open_Source_Software_Schwarz.png', function(req, res) {
-  res.sendFile('./images/512px-Icon_DINA_Schwerpunkte_Parldigi_01_Open_Source_Software_Schwarz.png', {
-    root: process.cwd(),
-    headers: {
-      'content-type': 'image/png'
-    }
-  })
+  })*/
+  res.status(404).send('no icon')
 })
 
 app.get('/forge.all.min.js', function(req, res) {
@@ -126,12 +111,12 @@ app.get('/client-cert.json', clientCertificateAuth(getOptions, () => true), func
 app.post('/register', bodyParser.text({'type': 'application/x-509-user-cert'}), function (req, res) {
   var cert = forge.pki.certificateFromPem(req.body)
   var cn = cert.subject.getField('CN').value
-  var caStore = forge.pki.createCaStore()
-  
-  forge.pki.verifyCertificateChain(caStore, [cert], async function(vfd, depth, chain) {
+
+  forge.pki.verifyCertificateChain(forge.pki.createCaStore(), [cert], async function(vfd, depth, chain) {
     try {
       installCert(cn, req.body)
     } catch (e) {
+      console.log(e)
       if (e && e.code && e.code === 'EEXIST') {
         return res.status(401).send(`This common name is already registered. Please pick a unique one.`)
       } else {
@@ -150,6 +135,10 @@ getOptions().then(async opts => {
   manifestHtml = manifestHtml.replace('<body>', '<body>\n\n' + marked(await fs.promises.readFile('README.md', 'utf-8')))
   opts.rejectUnauthorized = false // set to false initially for public view
   https.createServer(opts, app).listen(4000)
-  console.log(`https://localhost:4000`)
+  process.stdout.write('\x1Bc')
+  process.stdout.write(`https://${process.env.HOSTNAME}:4000`)
+  var tmpdir = path.join(os.tmpdir(), 'test-chrome-profile')
+  await fs.promises.mkdir(tmpdir, {recursive: true}).catch(e => undefined)
+  await open(`https://${process.env.HOSTNAME}:4000`, {app: ['chromium-browser', `--user-data-dir=${tmpdir}`]});
 })
 

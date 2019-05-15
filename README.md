@@ -1,4 +1,4 @@
-# Mutual TLS (MTLS) Login Example Progressive Web App
+# Mutual TLS (MTLS) Login Example
 
 ### Demo
 
@@ -30,6 +30,8 @@ This example app has very basic configuration via environment variables.
 | CLIENT_CERT_DIR | ./clients |
 
 The example works best with a server TLS certificate that is trusted by the browser, or the browser may not display the client certificate selection. Either use a real SSL cert signed by a normal CA, or first install the server cert in your browser for the demo session.
+
+For chrome you can also set `chrome://flags/#allow-insecure-localhost` for the test environment.
 
 ### License
 
