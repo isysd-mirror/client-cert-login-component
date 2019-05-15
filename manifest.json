@@ -1,0 +1,25 @@
+{
+    "name": "MTLS Login Example",
+    "short_name": "MTLS Login Example",
+    "start_url": "/",
+    "icons": [
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scripts": [
+      {
+        "src": "/jquery.min.js"
+      },
+      {
+        "src": "/marked.min.js"
+      },
+      {
+        "src": "/forge.all.min.js"
+      },
+      {
+        "src": "/index.js",
+        "type": "module"
+      }
+    ]
+}
